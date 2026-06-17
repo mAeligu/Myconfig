@@ -1,5 +1,7 @@
 ![Image alt](https://github.com/mAeligu/Myconfig/blob/3963f413430eaa120d1f72a99d25d8e086cc776b/Captura%20de%20pantalla%202026-06-17%20111259.png)
+
 code:
+
 mode: ''
 taskbarItemWidth: 0
 runningIndicatorStyle: fullWidth
