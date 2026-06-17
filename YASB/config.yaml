@@ -1,0 +1,160 @@
+watch_stylesheet: true
+watch_config: true
+debug: false
+komorebi:
+  start_command: "komorebic start --whkd"
+  stop_command: "komorebic stop --whkd"
+  reload_command: "komorebic reload-configuration"
+bars:
+  status-bar:
+    enabled: true
+    screens: ['*'] 
+    class_name: "yasb-bar"
+    alignment:
+      position: "top"
+    blur_effect:
+      enabled: true
+      acrylic: true  
+      dark_mode: true
+      round_corners: true
+      border_color: None
+    window_flags:
+      always_on_top: false
+      windows_app_bar: true
+    dimensions:
+      width: "100%"
+      height: 36
+    padding:
+      top: 8
+      left: 8
+      bottom: 14
+      right: 8
+    widgets:
+      left:
+        [
+          "active_window"
+        ] 
+      center: [
+          "clock",
+          "komorebi_workspaces",
+          "komorebi_active_layout",
+        ]
+      right:
+        [
+          "taskbar",
+          "weather",
+          "volume",
+          "apps",
+          "power_menu"
+        ]
+widgets:
+  active_window:
+    type: "yasb.active_window.ActiveWindowWidget"
+    options:
+      label: "{win[title]}"
+      label_alt: ""
+      label_no_window: ""
+      label_icon: true
+      label_icon_size: 14
+      max_length: 25
+      max_length_ellipsis: "..."
+      monitor_exclusive: true
+  clock:
+    type: "yasb.clock.ClockWidget"
+    options:
+      label: "{%A %d de %B de %Y, %I:%M %p}"
+      label_alt: ""
+      tooltip: false
+      locale: 'es_PE' # o 'es_MX'
+      timezones: []
+  komorebi_workspaces:
+    type: "komorebi.workspaces.WorkspaceWidget"
+    options:
+        label_offline: "Komorebi Offline"
+        label_workspace_btn: "\udb81\udc3d"
+        label_workspace_active_btn: "\udb81\udc3e"
+        label_default_name: "{index}"
+        label_zero_index: false
+        hide_empty_workspaces: false
+        hide_if_offline: true
+  komorebi_active_layout:
+    type: "komorebi.active_layout.ActiveLayoutWidget"
+    options:
+      hide_if_offline: true
+      label: "{icon}"
+      layouts: ['bsp', 'columns', 'rows', 'grid', 'vertical_stack', 'horizontal_stack', 'ultrawide_vertical_stack','right_main_vertical_stack']
+      layout_icons:
+        bsp: "BSP"
+        columns: "COLS"
+        rows: "ROWS"
+        grid: "GRID"
+        vertical_stack: "V-STACK"
+        horizontal_stack: "H-STACK"
+        ultrawide_vertical_stack: "W-STACK"
+        right_main_vertical_stack: "RMV-STACK"
+        monocle: "MONOCLE"
+        maximized: "MAX"
+        floating: "FLOATING"
+        paused: "PAUSED"
+      callbacks:
+        on_left: 'next_layout'
+        on_middle: 'toggle_monocle'
+        on_right: 'prev_layout'
+  weather:
+    type: "yasb.weather.WeatherWidget"
+    options:
+      label: "<span>{icon}</span> {temp}"
+      label_alt: ""
+      tooltip: false
+      api_key: '3bf4cf9a7c3f40d6b31174128242807'
+      update_interval: 600
+      hide_decimal: true
+      location: 'Villa Maria del Triunfo, Peru'
+      callbacks:
+        on_left: "toggle_label"
+      icons: 
+        sunnyDay: "\ue30d"
+        clearNight: "\ue32b"
+        cloudyDay: "\udb81\udd99"
+        cloudyNight: "\ue311"
+        rainyDay: "\udb81\ude7e"
+        rainyNight: "\udb81\ude7e"
+        snowyDay: "\udb81\udd98"
+        snowyNight: "\udb81\udd98"
+        blizzardDay: "\uebaa"
+        default: "\uebaa"
+  volume:
+    type: "yasb.volume.VolumeWidget"
+    options:
+      label: "<span>{icon}</span> {level}"
+      label_alt: ""
+      tooltip: false
+      callbacks:
+        on_right: "exec cmd.exe /c start ms-settings:sound"
+  power_menu:
+    type: "yasb.power_menu.PowerMenuWidget"
+    options:
+      label: "\uf011"
+      uptime: True
+      blur: False
+      blur_background: True
+      animation_duration: 300 
+      button_row: 3
+      buttons:
+        lock: ["\uea75","Lock"]
+        signout: ["\udb80\udf43","Sign out"]
+        shutdown: ["\uf011","Shut Down"]
+        restart: ["\uead2","Restart"]
+        hibernate: ["\uf28e","Hibernate"]
+        cancel: ["\udb81\udf3a","Cancel"]
+  apps:
+    type: "yasb.applications.ApplicationsWidget"
+    options:
+      label: "{data}"
+      app_list:
+        - {icon: "\uf0a2", launch: "notification_center"}
+        - {icon: "\ueb51", launch: "cmd.exe /c start ms-settings:"}
+  taskbar:
+    type: "yasb.taskbar.TaskbarWidget"
+    options:
+      icon_size: 14
